@@ -5,6 +5,12 @@ import { generateEmailBody, sendEmail } from "../../../lib/nodemailer";
 import { scrapeAmazonProduct } from "../../../lib/scraper";
 import { getAveragePrice, getEmailNotifType, getHighestPrice, getLowestPrice } from "../../../lib/utils";
 
+
+export const maxDuration = 300;
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
+
 export async function GET(){
 
     try {
@@ -37,7 +43,7 @@ export async function GET(){
                 averagePrice: getAveragePrice(updatedPricedHistory)
             }
 
-            const updatedProduct = await Product.findOneAndUpdate({url: scrapedProduct.url}, product)
+            const updatedProduct = await Product.findOneAndUpdate({url: product.url}, product)
 
 
             // 2. Check each product's status & send mail accordingly
